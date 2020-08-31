@@ -20,11 +20,20 @@ function App() {
     fetch();
   }
 
-  const handleSubmit = async () => {
-    await axios.post('/api/persons', {
-      name, 
-      number
-    })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const checkIfNameExists = book.find(person => person.name === name)
+    if (checkIfNameExists) {
+      await axios.put(`/api/persons/${checkIfNameExists.id}`, {
+        name, 
+        number
+      })
+    } else {
+      await axios.post('/api/persons', {
+        name, 
+        number
+      })
+    }
     fetch();
   }
 
